@@ -17,7 +17,7 @@ function Calculator() {
   const calculateResult = () => {
     try {
       if (!isCompleteExpression(expression)) {
-        setShowValue("Incomplete Expression");
+        setShowValue("Error");
         return;
       }
 
