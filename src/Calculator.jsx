@@ -9,16 +9,21 @@ function Calculator() {
     setExpression((prev) => prev + value);
   };
 
+  const isCompleteExpression = (expr) => {
+    // Check if the expression contains at least one operator and ends with a number
+    return /[\d)]$/.test(expr) && /[\+\-\*\/]/.test(expr);
+  };
+
   const calculateResult = () => {
     try {
-      // Check if the expression is valid and complete
-      if (/^[\d+\-*/.]+$/.test(expression) && !/[\+\-\*\/]$/.test(expression)) {
-        // Evaluate the expression
-        const result = new Function("return " + expression)();
-        setShowValue(result);
-      } else {
-        setShowValue("Error");
+      if (!isCompleteExpression(expression)) {
+        setShowValue("Incomplete Expression");
+        return;
       }
+
+      // Evaluate the expression
+      const result = new Function("return " + expression)();
+      setShowValue(result);
     } catch (error) {
       setShowValue("Error");
     }
