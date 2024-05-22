@@ -11,6 +11,13 @@ function Calculator() {
 
   const calculateResult = () => {
     try {
+      // Check if the expression ends with an operator
+      if (/[\+\-\*\/]$/.test(expression)) {
+        setShowValue("Incomplete Expression");
+        return;
+      }
+
+      // Evaluate the expression
       const result = new Function("return " + expression)();
       setShowValue(result);
     } catch (error) {
